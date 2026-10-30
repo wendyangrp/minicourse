@@ -1,161 +1,414 @@
-/* Plain styling for now: just enough to be readable and responsive. */
+/* Clean, studio-like design: neutral greys with one blue accent. */
 
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --muted: #555555;
-  --border: #d0d0d0;
-  --panel: #f4f4f4;
-  --link: #0645ad;
-  --current: #e2e8f5;
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --text: #1b1f24;
+  --muted: #5b6470;
+  --border: #e1e4e8;
+  --accent: #1f5fbf;
+  --accent-soft: #e8f0fb;
+  --accent-text: #ffffff;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 4px 16px rgba(16, 24, 40, 0.06);
+
+  --radius: 10px;
+  --header-height: 60px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 }
 
 [data-theme="dark"] {
-  --bg: #161616;
-  --text: #e8e8e8;
-  --muted: #aaaaaa;
-  --border: #3a3a3a;
-  --panel: #222222;
-  --link: #8ab4f8;
-  --current: #2c3446;
+  --bg: #0f1216;
+  --surface: #171b21;
+  --text: #e6e9ed;
+  --muted: #9aa3ad;
+  --border: #2a3038;
+  --accent: #6ea4f5;
+  --accent-soft: #1b2a40;
+  --accent-text: #0f1216;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: var(--link);
+  color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 button {
   font: inherit;
   color: var(--text);
-  background: var(--panel);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
   cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
 }
 
-button:disabled {
-  opacity: 0.4;
-  cursor: default;
+button:hover {
+  border-color: var(--accent);
 }
 
-/* Header */
+/* ---- Header ---- */
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  height: var(--header-height);
+  padding: 0 1.25rem;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
 .site-title {
-  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   flex: 1;
-  font-weight: bold;
+  min-width: 0;
+  margin: 0;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.site-subtitle {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* A small half-lit sphere: a nod to rendering and lighting. */
+.site-mark {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #ffffff 0, var(--accent) 45%, #0b2b5c 100%);
+  box-shadow: inset -2px -3px 4px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+}
+
+.theme-icon {
+  line-height: 1;
 }
 
 .menu-toggle {
   display: none;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
-/* Layout: lesson list beside the content on wide screens */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.menu-icon {
+  position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menu-icon::before {
+  top: -5px;
+}
+
+.menu-icon::after {
+  top: 5px;
+}
+
+/* ---- Layout ---- */
 
 .layout {
   display: flex;
-  max-width: 1100px;
+  align-items: flex-start;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+/* ---- Lesson list ---- */
+
 .lesson-nav {
-  flex: 0 0 260px;
-  padding: 1rem;
-  border-right: 1px solid var(--border);
+  position: sticky;
+  top: var(--header-height);
+  flex: 0 0 290px;
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: 1.5rem 1rem 2rem 1.25rem;
 }
 
-.lesson-nav ol {
+.nav-heading {
+  margin: 0 0 0.75rem;
+  padding-left: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-group {
+  margin-bottom: 1rem;
+}
+
+.nav-group-title {
+  margin: 0 0 0.25rem;
+  padding-left: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.nav-group ol {
+  list-style: none;
   margin: 0;
-  padding-left: 1.5rem;
-}
-
-.lesson-nav li {
-  margin-bottom: 0.25rem;
+  padding: 0;
 }
 
 .lesson-nav a {
-  color: var(--text);
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--muted);
   text-decoration: none;
 }
 
 .lesson-nav a:hover {
-  text-decoration: underline;
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+.lesson-nav .nav-number {
+  flex: 0 0 1.5rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
 }
 
 .lesson-nav a[aria-current="page"] {
-  background: var(--current);
-  font-weight: bold;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
 }
+
+/* ---- Lesson content ---- */
 
 main {
   flex: 1;
   min-width: 0;
-  padding: 1rem 1.5rem 2rem;
-  max-width: 70ch;
+  padding: 1.5rem 1.5rem 3rem;
 }
 
-.further {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-details {
-  margin-top: 1rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--panel);
+.lesson {
+  max-width: 720px;
+  padding: 2.25rem 2.5rem 2.5rem;
+  background: var(--surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Without JavaScript all lessons show one after another, so space them out. */
+html:not(.js) .lesson + .lesson {
+  margin-top: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lesson h1,
+.lesson h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: 1rem;
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.1rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border);
+}
+
+.lesson h1:focus,
+.lesson h2:focus {
+  outline: none;
+}
+
+.lesson p {
+  margin: 0 0 1rem;
+}
+
+.lesson ul,
+.lesson ol {
+  margin: 0 0 1rem;
+  padding-left: 1.4rem;
+}
+
+.lesson li {
+  margin-bottom: 0.45rem;
+}
+
+.lesson li::marker {
+  color: var(--accent);
+}
+
+.lesson li > ul {
+  margin-top: 0.45rem;
+}
+
+.lesson strong {
+  font-weight: 650;
+}
+
+.lesson em {
+  font-style: normal;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  padding: 0.05em 0.35em;
+  background: var(--accent-soft);
   border-radius: 4px;
 }
 
-summary {
-  cursor: pointer;
-}
-
-/* When JavaScript is running, only the current lesson is shown. */
-.js .lesson[hidden] {
-  display: none;
-}
-
-/* Previous / Next bar */
-
-.pager {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1rem;
-  border-top: 1px solid var(--border);
-}
-
-#progress {
+.further {
+  margin-top: 1.5rem !important;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+  font-size: 0.92rem;
   color: var(--muted);
 }
 
-/* Without JavaScript, all lessons show one after another and the controls are hidden. */
+details {
+  margin-top: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+summary {
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+details ol {
+  margin: 0.75rem 0 !important;
+  padding-right: 0.9rem;
+}
+
+/* ---- Previous / Next ---- */
+
+.pager {
+  display: flex;
+  gap: 1rem;
+  max-width: 720px;
+  margin-top: 1.25rem;
+}
+
+.pager-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-radius: var(--radius);
+}
+
+.pager-next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.pager-label {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pager-btn:not(.pager-next) .pager-label::before {
+  content: "← ";
+}
+
+.pager-next .pager-label::after {
+  content: " →";
+}
+
+.pager-title {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Hide a button entirely on the first and last lesson. */
+.pager-btn:disabled {
+  visibility: hidden;
+}
+
+/* ---- Without JavaScript: hide the controls that need it ---- */
+
 html:not(.js) .pager,
 html:not(.js) .lesson-nav,
 html:not(.js) .menu-toggle,
@@ -163,10 +416,11 @@ html:not(.js) .theme-toggle {
   display: none;
 }
 
-/* Tablet and phone: the lesson list becomes a menu that opens from the header. */
-@media (max-width: 800px) {
+/* ---- Tablet and phone: the lesson list becomes a drop-down menu ---- */
+
+@media (max-width: 900px) {
   .menu-toggle {
-    display: inline-block;
+    display: inline-flex;
   }
 
   .layout {
@@ -175,9 +429,15 @@ html:not(.js) .theme-toggle {
 
   .lesson-nav {
     display: none;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    background: var(--panel);
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    max-height: none;
+    padding: 1.25rem 1rem 2rem;
+    background: var(--surface);
   }
 
   .lesson-nav.open {
@@ -185,17 +445,60 @@ html:not(.js) .theme-toggle {
   }
 
   main {
-    padding: 1rem;
+    padding: 1rem 1rem 2rem;
+  }
+
+  .lesson,
+  .pager {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
   .site-header {
-    flex-wrap: wrap;
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .site-subtitle {
+    display: none;
   }
 
   .site-title {
-    order: -1;
-    flex-basis: 100%;
+    font-size: 0.95rem;
+  }
+
+  .site-title > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Icon-only theme button; the label stays available to screen readers. */
+  .theme-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .theme-toggle {
+    padding: 0.45rem 0.7rem;
+  }
+
+  .lesson {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  .pager {
+    gap: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
   }
 }

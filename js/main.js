@@ -9,7 +9,8 @@ const themeButton = document.getElementById('theme-toggle');
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const isDark = theme === 'dark';
-  themeButton.textContent = isDark ? 'Light theme' : 'Dark theme';
+  themeButton.querySelector('.theme-icon').textContent = isDark ? '☀' : '☾';
+  themeButton.querySelector('.theme-label').textContent = isDark ? 'Light theme' : 'Dark theme';
   themeButton.setAttribute('aria-pressed', String(isDark));
 }
 
@@ -41,17 +42,49 @@ const nav = document.getElementById('lesson-nav');
 const menuButton = document.getElementById('menu-toggle');
 const prevButton = document.getElementById('prev-btn');
 const nextButton = document.getElementById('next-btn');
-const progress = document.getElementById('progress');
+const prevTitle = document.getElementById('prev-title');
+const nextTitle = document.getElementById('next-title');
 let current = 0;
 
-// Build the lesson list from each lesson's heading.
-const links = lessons.map((lesson) => {
+function titleOf(lesson) {
+  return lesson.querySelector('h1, h2').textContent;
+}
+
+// Build the lesson list, grouped by each lesson's data-group (e.g. "Materials"),
+// and add a small "Materials · Lesson 6 of 30" label above each lesson's heading.
+let groupList = null;
+const links = lessons.map((lesson, i) => {
+  const group = lesson.dataset.group;
+
+  if (!groupList || groupList.dataset.group !== group) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'nav-group';
+    const title = document.createElement('p');
+    title.className = 'nav-group-title';
+    title.textContent = group;
+    groupList = document.createElement('ol');
+    groupList.dataset.group = group;
+    wrapper.append(title, groupList);
+    list.appendChild(wrapper);
+  }
+
   const li = document.createElement('li');
   const a = document.createElement('a');
   a.href = '#' + lesson.id;
-  a.textContent = lesson.querySelector('h1, h2').textContent;
+  const number = document.createElement('span');
+  number.className = 'nav-number';
+  number.textContent = i + 1;
+  const name = document.createElement('span');
+  name.textContent = titleOf(lesson);
+  a.append(number, name);
   li.appendChild(a);
-  list.appendChild(li);
+  groupList.appendChild(li);
+
+  const eyebrow = document.createElement('p');
+  eyebrow.className = 'eyebrow';
+  eyebrow.textContent = `${group} · Lesson ${i + 1} of ${lessons.length}`;
+  lesson.prepend(eyebrow);
+
   return a;
 });
 
@@ -71,7 +104,14 @@ function show(index, moveFocus) {
 
   prevButton.disabled = current === 0;
   nextButton.disabled = current === lessons.length - 1;
-  progress.textContent = `${current + 1} of ${lessons.length}`;
+  prevTitle.textContent = current > 0 ? titleOf(lessons[current - 1]) : '';
+  nextTitle.textContent = current < lessons.length - 1 ? titleOf(lessons[current + 1]) : '';
+
+  // Keep the current lesson visible in a long lesson list (scrolls the list only, not the page).
+  const link = links[current];
+  if (link.offsetTop < nav.scrollTop || link.offsetTop + link.offsetHeight > nav.scrollTop + nav.clientHeight) {
+    nav.scrollTop = link.offsetTop - nav.clientHeight / 3;
+  }
 
   closeMenu();
   window.scrollTo(0, 0);
@@ -110,9 +150,19 @@ menuButton.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', String(open));
 });
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && nav.classList.contains('open')) {
+    closeMenu();
+    menuButton.focus();
+  }
+});
+
 show(indexFromHash(), false);
 
 // Opening a lesson link (e.g. index.html#hdri) makes the browser jump down to that lesson
 // once the page has loaded, hiding the header. Return to the top instead.
 history.scrollRestoration = 'manual';
-window.addEventListener('load', () => window.scrollTo(0, 0));
+window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
+  requestAnimationFrame(() => window.scrollTo(0, 0));
+});
