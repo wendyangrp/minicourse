@@ -11,6 +11,7 @@
 - `index.html` – the whole course on one page; each `<section class="lesson">` is one lesson, and its `data-group` (e.g. "Materials") sets which topic it's listed under.
 - `css/style.css` – all styles, including light/dark theme colours.
 - `js/main.js` – shows one lesson at a time, builds the lesson list, theme toggle.
+- `js/material-explorer.js` – the interactive material explorer in the Materials lessons.
 - `README.md`, `CLAUDE.md` – project notes.
 
 Slide decks and other source files (e.g. instructor resources) are source material only: never commit them to the repo.

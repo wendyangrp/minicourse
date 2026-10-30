@@ -129,6 +129,52 @@
         <p><strong>Surface reflection</strong>: light bounces straight off the surface. This is also called specular reflection, and it creates glossy highlights. It's the main kind of reflection on metals.</p>
       </section>
 
+      <section class="lesson" id="material-explorer-lesson" data-group="Materials">
+        <h2>Try it: material explorer</h2>
+        <p>Use the controls to restyle the sphere and see how the settings from the last few lessons change a material's look. Try making the same colour as plastic and then as metal, and drag the roughness from smooth to rough.</p>
+
+        <div class="explorer" id="material-explorer">
+          <div class="explorer-preview">
+            <canvas role="img" aria-label="Preview sphere"></canvas>
+            <p class="explorer-description" id="mx-description" aria-live="polite"></p>
+          </div>
+
+          <div class="explorer-controls">
+            <fieldset>
+              <legend>Type</legend>
+              <div class="segmented">
+                <label><input type="radio" name="mx-type" value="plastic" checked> Plastic</label>
+                <label><input type="radio" name="mx-type" value="metal"> Metal</label>
+              </div>
+            </fieldset>
+
+            <div class="control">
+              <label for="mx-colour">Colour</label>
+              <input type="color" id="mx-colour" value="#f2c230">
+            </div>
+
+            <div class="control">
+              <label for="mx-roughness">Roughness <output id="mx-roughness-value" for="mx-roughness">15</output></label>
+              <input type="range" id="mx-roughness" min="0" max="100" value="15">
+              <div class="range-ends" aria-hidden="true"><span>Smooth</span><span>Rough</span></div>
+            </div>
+
+            <fieldset>
+              <legend>Try a preset</legend>
+              <div class="presets">
+                <button type="button" data-preset="yellow-plastic">Glossy yellow plastic</button>
+                <button type="button" data-preset="matte-rubber">Matte rubber</button>
+                <button type="button" data-preset="polished-gold">Polished gold</button>
+                <button type="button" data-preset="brushed-aluminium">Brushed aluminium</button>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <noscript><p>The material explorer needs JavaScript turned on.</p></noscript>
+
+        <p class="further">This preview is a simplified version of what Fusion does, so expect real renders to look more detailed. The ideas are the same, though: smooth surfaces give sharp highlights and reflections, rough ones spread them out, and metals take their colour from what they reflect.</p>
+      </section>
+
       <section class="lesson" id="tinted-transparent" data-group="Materials">
         <h2>Tinted see-through materials</h2>
         <p>Clear materials like glass and clear plastic can be tricky to get right. If you simply pick a darker colour for them, they can still render as completely clear.</p>
@@ -437,5 +483,6 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/material-explorer.js"></script>
 </body>
 </html>
