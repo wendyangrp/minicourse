@@ -111,3 +111,8 @@ menuButton.addEventListener('click', () => {
 });
 
 show(indexFromHash(), false);
+
+// Opening a lesson link (e.g. index.html#hdri) makes the browser jump down to that lesson
+// once the page has loaded, hiding the header. Return to the top instead.
+history.scrollRestoration = 'manual';
+window.addEventListener('load', () => window.scrollTo(0, 0));
