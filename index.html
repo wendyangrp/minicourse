@@ -27,40 +27,59 @@
     </nav>
 
     <main id="lessons">
-      <!-- Each <section class="lesson"> is one slide from the deck. js/main.js shows one at a time. -->
+      <!-- Each <section class="lesson"> is one lesson; data-group sets its topic in the lesson list. js/main.js shows one at a time. -->
 
       <section class="lesson" id="welcome" data-group="Introduction">
         <h1>Rendering and Animation</h1>
-        <p>Welcome to this mini-course from E261 Innovation and Design Thinking. You'll take a 3D model you've already built in Fusion and make it look like a real product. You'll also learn to animate it, so you can show how the parts fit together and move.</p>
-        <p>Use the lesson list or the Next button to move through the course at your own pace.</p>
+        <p>Welcome to this mini-course from E261 Innovation and Design Thinking. You'll take a 3D model you've already built in Fusion and turn it into images that look like photos of a real product. Then you'll animate it, so you can show how its parts fit together and move.</p>
+        <p>Plan for about two to three hours, including the hands-on activities. Use the lesson list or the Next button to move through the course at your own pace.</p>
       </section>
 
       <section class="lesson" id="objectives" data-group="Introduction">
         <h2>What you'll learn</h2>
         <p>By the end of this course you should be able to:</p>
         <ul>
-          <li>apply materials to the bodies in your design</li>
-          <li>add decals, change the environment and render photo-realistic images of your model</li>
+          <li>apply and edit materials (appearances) on the bodies in your design</li>
+          <li>add decals and line up wood grain and other textures</li>
+          <li>set up a render scene: the background, ground, camera and lighting</li>
+          <li>create a photo-realistic rendered image, and a turntable that spins your model all the way round</li>
           <li>produce an animation and a presentation of your design using CAD tools</li>
         </ul>
       </section>
 
       <section class="lesson" id="rendering" data-group="Rendering basics">
         <h2>What is rendering?</h2>
-        <p>Rendering means a computer program turns your design into a finished image. It combines everything it knows about the scene: the shape of the model (its geometry), the camera position, the lighting, and the textures and materials on each part.</p>
-        <p>Before you render, you give each part of your design an <strong>appearance material</strong>, such as plastic, glass, metal, paint or wood. These materials hold the visual properties that make the final image look photo-realistic, so you can see how your design would look in the real world.</p>
+        <p>A <strong>render</strong> is an image, or a short animation, of your design that looks like a photo. Rendering is the process the computer uses to make one. It combines everything it knows about the scene: the shape of the model (its geometry), the camera position, the lighting, and the materials on each part.</p>
+        <p>While you're modelling, Fusion uses simple, fast lighting so it can keep up with your changes. A render uses far more realistic lighting and materials, so it takes longer to create but looks much more lifelike.</p>
+        <p>Designers use renders to show what a product will look like before it's made, in presentations, portfolios and marketing. A render can be a still image, or a <strong>turntable</strong>: a short animation where the model spins all the way round.</p>
       </section>
 
       <section class="lesson" id="render-workspace" data-group="Rendering basics">
         <h2>The Render workspace in Fusion</h2>
-        <p>Fusion keeps its rendering tools in their own Render workspace, which has two main areas.</p>
+        <p>Fusion keeps its rendering tools in their own <strong>Render</strong> workspace. To get there, use the workspace picker in the top-left corner (it usually says <em>Design</em>) and choose <em>Render</em>.</p>
         <p>The <strong>Setup</strong> section is where you prepare the scene:</p>
         <ul>
           <li><strong>Appearance</strong>: choose the materials for each part</li>
-          <li><strong>Scene Settings</strong>: set the environment, such as lighting and background</li>
-          <li><strong>Decal</strong>: place images, like logos or labels, onto surfaces</li>
+          <li><strong>Scene Settings</strong>: set the background, ground, camera and lighting</li>
+          <li><strong>Decal</strong>: stick images, like logos or labels, onto surfaces</li>
+          <li><strong>Texture Map Controls</strong>: line up the direction of patterns, such as wood grain</li>
         </ul>
-        <p>The <strong>Render</strong> section is where you start and stop rendering.</p>
+        <p>The <strong>In-canvas Render</strong> section gives you a quick, live preview in the main window. The <strong>Render</strong> section creates your finished images and keeps them in the <strong>Rendering Gallery</strong>.</p>
+      </section>
+
+      <section class="lesson" id="render-workflow" data-group="Rendering basics">
+        <h2>The rendering workflow</h2>
+        <p>Most renders are made in the same order. You'll practise each step in this course:</p>
+        <ol>
+          <li>Apply appearances to each body or component, and edit them if needed.</li>
+          <li>Set up the scene: the environment, ground and camera.</li>
+          <li>Add decals, if your design has logos or labels.</li>
+          <li>Adjust texture directions, such as wood grain, if needed.</li>
+          <li>Turn the model to the angle you want to show, and save that view.</li>
+          <li>Check everything with a quick in-canvas render.</li>
+          <li>Create the final render, on your computer or in the cloud.</li>
+        </ol>
+        <p>Once a render is finished, you can touch it up, download it, or turn it into a turntable animation.</p>
       </section>
 
       <section class="lesson" id="apply-materials" data-group="Materials">
@@ -110,6 +129,35 @@
         <p><strong>Surface reflection</strong>: light bounces straight off the surface. This is also called specular reflection, and it creates glossy highlights. It's the main kind of reflection on metals.</p>
       </section>
 
+      <section class="lesson" id="tinted-transparent" data-group="Materials">
+        <h2>Tinted see-through materials</h2>
+        <p>Clear materials like glass and clear plastic can be tricky to get right. If you simply pick a darker colour for them, they can still render as completely clear.</p>
+        <p>To make a see-through part look tinted, like sunglasses lenses or a coloured bottle, edit the material and change two settings:</p>
+        <ul>
+          <li><strong>Absorption Distance</strong>: how far light can travel through the material before it fades. A <em>smaller</em> number makes the part look darker. Try about 0.5 inches, then go lower if you want it darker.</li>
+          <li><strong>Refractive Index</strong>: set it to match the real material, for example <em>Glass</em>, so light bends through it realistically.</li>
+        </ul>
+        <p>Run a quick in-canvas render to check the result, because the normal modelling view doesn't show this effect.</p>
+      </section>
+
+      <section class="lesson" id="texture-map-controls" data-group="Materials">
+        <h2>Wood grain and texture direction</h2>
+        <p>Fusion has two kinds of wood material. The <strong>Wood (Solid)</strong> materials have grain that runs right through the part, so if you cut into it, the grain shows inside the cut, just like real wood.</p>
+        <p>Patterns such as wood grain run in a particular direction, and sometimes that direction looks wrong. To change it, click <em>Setup &gt; Texture Map Controls</em>, choose <strong>Pick Axis</strong>, and select a different axis until the grain runs the way you want.</p>
+        <p>Some materials have to be downloaded before you can use them. If you see a small download icon next to a material's name, click it first.</p>
+      </section>
+
+      <section class="lesson" id="decals" data-group="Materials">
+        <h2>Decals: logos and labels</h2>
+        <p>A <strong>decal</strong> is an image you stick onto a surface of your model, like a sticker. Logos, labels and printed text make a render look much more like a real product.</p>
+        <ol>
+          <li>Click <em>Setup &gt; Decal</em>, then choose <em>Insert from my computer</em> and pick your image. A PNG with a transparent background works best.</li>
+          <li>Click the face you want to put it on.</li>
+          <li>Turn off <strong>Chain Faces</strong> if you want the decal to stay on that one face, instead of wrapping onto the faces next to it.</li>
+          <li>Use the arrows and handles on screen to resize and move the decal, then click <em>OK</em>.</li>
+        </ol>
+      </section>
+
       <section class="lesson" id="activity-1-part-1" data-group="Materials">
         <h2>Activity 1: Change the material of objects (part 1)</h2>
         <p>Open or upload the trophy model you made in E262. Save a copy with the name <strong>Trophy_Render</strong> so the original stays untouched.</p>
@@ -132,12 +180,17 @@
           <li><strong>Apply a material to a selected part.</strong> In the library, go to <em>Plastic &gt; Opaque &gt; Plastic &gt; Glossy (Yellow)</em>, then drag the icon onto the part.</li>
           <li><strong>Or, apply it through the browser.</strong> Find the same material and drag its icon onto the body in the browser instead.</li>
         </ol>
-        <p>Tip: to give every body in a component the same material, drag the icon onto the <strong>top-level component</strong> in the browser.</p>
+        <p>Tips:</p>
+        <ul>
+          <li>To give every body in a component the same material, drag the icon onto the <strong>top-level component</strong> in the browser.</li>
+          <li>If a material shows a download icon, click it before dragging the material onto your model.</li>
+        </ul>
       </section>
 
       <section class="lesson" id="exercise-edit-material" data-group="Materials">
         <h2>Exercise: Edit a material</h2>
-        <p>Under <strong>In This Design</strong>, double-click a material's icon. This opens its settings, where you can change its properties and appearance. Try changing the colour, roughness or reflectance, and watch how the trophy's look changes.</p>
+        <p>Under <strong>In This Design</strong>, double-click a material's icon, or right-click it and choose <em>Edit</em>. This opens its settings, where you can change its properties and appearance. Try changing the colour, roughness or reflectance, and watch how the trophy's look changes.</p>
+        <p>Extra challenge: add a decal to your trophy, such as a logo or your name, on the base.</p>
       </section>
 
       <section class="lesson" id="scene-settings" data-group="Scene and rendering">
@@ -148,8 +201,40 @@
       </section>
 
       <section class="lesson" id="scene-settings-tabs" data-group="Scene and rendering">
-        <h2>Scene settings: settings and environment library</h2>
-        <p>The Scene Settings panel has two tabs. One holds the settings for the current scene, such as brightness, background and ground. The other is the environment library, where you choose a different environment to place your model in.</p>
+        <h2>Scene settings: the two tabs</h2>
+        <p>The Scene Settings panel (<em>Setup &gt; Scene Settings</em>) has two tabs:</p>
+        <ul>
+          <li><strong>Settings</strong>: the controls for the current scene, such as brightness, background, ground and camera.</li>
+          <li><strong>Environment Library</strong>: a collection of ready-made environments. To use one, drag its thumbnail into the canvas. Try a few and see how each one changes the lighting and reflections on your model.</li>
+        </ul>
+        <p>Studio-style environments, such as <em>Photo Booth</em>, give clean, even lighting and suit most product shots. Outdoor environments can look great too, but make sure the background suits your product.</p>
+      </section>
+
+      <section class="lesson" id="background-and-ground" data-group="Scene and rendering">
+        <h2>Background and ground</h2>
+        <p>In the <strong>Settings</strong> tab, the <strong>Background</strong> menu offers two choices:</p>
+        <ul>
+          <li><strong>Solid color</strong>: a plain background, which keeps attention on the product.</li>
+          <li><strong>Environment</strong>: the environment's picture appears behind your model.</li>
+        </ul>
+        <p>The <strong>Ground</strong> options control the floor your model sits on:</p>
+        <ul>
+          <li><strong>Flatten Ground</strong> lays the environment picture flat under the model. If you see a dark line where the floor meets the background, try turning this off.</li>
+          <li><strong>Reflections</strong> shows a mirror image of the model on the floor. Turn it off if you don't want one.</li>
+        </ul>
+        <p>You can also use your own photo as an environment: in the Environment Library, click the folder icon labelled <em>Attach Custom Environment</em>.</p>
+      </section>
+
+      <section class="lesson" id="camera-and-framing" data-group="Scene and rendering">
+        <h2>Camera and framing</h2>
+        <p>The <strong>Settings</strong> tab also controls the camera:</p>
+        <ul>
+          <li><strong>Focal length</strong>: how zoomed-in the lens is. A short focal length is wide-angle and stretches the model's shape, while a longer one looks flatter and more natural.</li>
+          <li><strong>Depth of field</strong>: keeps one area sharp and blurs what's in front of and behind it, like a photo of a close-up object. It's a good way to draw the eye.</li>
+          <li><strong>Aspect ratio</strong>: the shape of the image, for example 16:9 widescreen for slides and screens.</li>
+          <li><strong>Position</strong>: spin the environment around your model with a slider, to change where the light comes from.</li>
+        </ul>
+        <p>When you find a good angle, save it as a <strong>named view</strong>. In the browser, right-click <em>Named Views</em>, choose <em>New Named View</em>, and give it a clear name like "IsoFront". Clicking the view brings the model straight back to that angle, so you can render the same shot again.</p>
       </section>
 
       <section class="lesson" id="hdri" data-group="Scene and rendering">
@@ -160,9 +245,13 @@
 
       <section class="lesson" id="rendering-methods" data-group="Scene and rendering">
         <h2>Rendering methods in Fusion</h2>
-        <p>Fusion gives you two ways to render.</p>
-        <p><strong>In-canvas render</strong> renders right in the main window using ray tracing. Ray tracing works out how light bounces around the scene, which makes the view look much more photo-realistic. Let it run for about 120 seconds before stopping it, then capture an image.</p>
-        <p><strong>Render</strong> (local rendering) lets you choose your render settings, such as image size and quality, and then renders the image on your own computer.</p>
+        <p>Fusion gives you two main ways to render.</p>
+        <p><strong>In-canvas render</strong> renders right in the main window using ray tracing. Ray tracing works out how light bounces off and through every part of the scene, pixel by pixel. The image starts grainy and gets clearer the longer it runs. Use the slider to choose the quality you want, and let it run for about 120 seconds before stopping it. It's the best way to check your settings before a final render. It uses your computer's power, so Fusion can be slow while it runs.</p>
+        <p><strong>Render</strong> creates a finished, high-quality image and saves it to the Rendering Gallery. You choose the image size and brightness (exposure), and where it's rendered:</p>
+        <ul>
+          <li><strong>Local</strong>: on your own computer. It's free, but your computer is busy until it's done.</li>
+          <li><strong>Cloud</strong>: on Autodesk's servers, so you can keep working while it runs. Standard images usually cost nothing, but bigger jobs, like turntables, can use credits called <em>Flex Tokens</em>. The Render Settings panel shows the cost before you start.</li>
+        </ul>
       </section>
 
       <section class="lesson" id="activity-2-part-1" data-group="Scene and rendering">
@@ -170,13 +259,13 @@
         <ol>
           <li><strong>Change the scene settings.</strong> Click <em>Setup &gt; Scene Settings</em>, and try these tools:
             <ul>
-              <li><strong>Environment</strong>: choose a different setting to light the model</li>
-              <li><strong>Ground</strong>: control the ground plane under the model, such as its shadows and reflections</li>
-              <li><strong>Camera</strong>: adjust the camera view</li>
+              <li><strong>Environment</strong>: drag a few different environments from the Environment Library into the canvas</li>
+              <li><strong>Ground</strong>: try turning Flatten Ground and Reflections on and off</li>
+              <li><strong>Camera</strong>: change the focal length, and choose a 16:9 aspect ratio</li>
             </ul>
           </li>
         </ol>
-        <p>To change the background colour, go to <em>Scene Settings &gt; Background &gt; Color</em>.</p>
+        <p>To use a plain background instead, choose <em>Solid color</em> under <em>Background</em>, then pick a colour. When you're happy with the angle, save it as a named view.</p>
       </section>
 
       <section class="lesson" id="activity-2-part-2" data-group="Scene and rendering">
@@ -185,6 +274,38 @@
           <li><strong>Use the in-canvas render.</strong> Click the in-canvas render button to start rendering, and click it again to stop.</li>
         </ol>
         <p>Rendering can take a long time. You don't have to wait for it to finish: stop it once you're happy with how the image looks.</p>
+      </section>
+
+      <section class="lesson" id="rendering-gallery" data-group="Final renders">
+        <h2>The Rendering Gallery</h2>
+        <p>Every render you create with the Render tool is saved in the <strong>Rendering Gallery</strong> at the bottom of the screen. While a render is running, the gallery shows its progress.</p>
+        <p>Click a finished render to open it. From there you can:</p>
+        <ul>
+          <li><strong>Post-process</strong> it: adjust things like brightness and contrast, much like editing a photo. The edited version is saved next to the original, so you never lose it.</li>
+          <li><strong>Download</strong> it in the file type you need. You can also save it with a transparent background, which is useful for putting your product onto slides or posters.</li>
+          <li><strong>Render on save</strong>: drag a render's thumbnail into the large box on the left of the gallery, and Fusion will re-render that image every time you save your design.</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="turntable" data-group="Final renders">
+        <h2>Turntable renders</h2>
+        <p>A <strong>turntable</strong> is a short animation where your model spins all the way round, as if it's sitting on a rotating display stand. It's a great way to show off every side of a design.</p>
+        <p>To make one, open a finished render in the Rendering Gallery and click <em>Turntable</em>. You can choose:</p>
+        <ul>
+          <li><strong>Frames</strong>: how many pictures make up the spin. More frames make the spin smoother; for example, 36 frames looks much smoother than 6.</li>
+          <li><strong>Resolution</strong>: the size of each frame.</li>
+        </ul>
+        <p>Turntables are rendered in the cloud and often cost Flex Tokens. Fewer frames and a smaller size cost less, so check the cost shown before you click <em>Render</em>.</p>
+      </section>
+
+      <section class="lesson" id="activity-2-part-3" data-group="Final renders">
+        <h2>Activity 2: Change the scene and render (part 3): final render</h2>
+        <ol start="3">
+          <li><strong>Create a final render.</strong> Click your named view, then click <em>Render &gt; Render</em>. Choose the image size and exposure, pick <em>Local</em> or <em>Cloud</em>, and click <em>Render</em>.</li>
+          <li><strong>Try another angle.</strong> If you rendered in the cloud, you can keep working: pick a different view of your trophy and render it too.</li>
+          <li><strong>Touch it up and download it.</strong> Open a finished render in the Rendering Gallery, try post-processing it, then download it as an image.</li>
+          <li><strong>Optional: make a turntable.</strong> Open your render and click <em>Turntable</em>. Check the Flex Token cost first, and ask your instructor if you're not sure.</li>
+        </ol>
       </section>
 
       <section class="lesson" id="animation" data-group="Animation">
@@ -292,8 +413,14 @@
 
       <section class="lesson" id="end" data-group="Wrap-up">
         <h2>You've finished!</h2>
-        <p>That's the end of this course. You can now give your designs realistic materials, set up a scene, render a photo-realistic image, and create and publish an animation.</p>
-        <p>Use the lesson list to revisit any section.</p>
+        <p>That's the end of this course. You can now:</p>
+        <ul>
+          <li>give your designs realistic materials, decals and textures</li>
+          <li>set up a scene, with the right environment, ground and camera</li>
+          <li>create, touch up and download a photo-realistic render, or a turntable</li>
+          <li>create and publish an animation of your design</li>
+        </ul>
+        <p>Use the lesson list to revisit any lesson.</p>
       </section>
 
       <nav class="pager" aria-label="Previous and next lesson">
