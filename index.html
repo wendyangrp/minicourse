@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering and Animation in Fusion</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="lesson-nav">Lessons</button>
+    <p class="site-title">Rendering and Animation in Fusion</p>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">Dark theme</button>
+  </header>
+
+  <div class="layout">
+    <nav id="lesson-nav" class="lesson-nav" aria-label="Lessons">
+      <ol id="lesson-list"></ol>
+    </nav>
+
+    <main id="lessons">
+      <!-- Each <section class="lesson"> is one slide from the deck. js/main.js shows one at a time. -->
+
+      <section class="lesson" id="welcome">
+        <h1>Rendering and Animation</h1>
+        <p>Welcome to this mini-course from E261 Innovation and Design Thinking. You'll take a 3D model you've already built in Fusion and make it look like a real product. You'll also learn to animate it, so you can show how the parts fit together and move.</p>
+        <p>Use the lesson list or the Next button to move through the course at your own pace.</p>
+      </section>
+
+      <section class="lesson" id="objectives">
+        <h2>What you'll learn</h2>
+        <p>By the end of this course you should be able to:</p>
+        <ul>
+          <li>apply materials to the bodies in your design</li>
+          <li>add decals, change the environment and render photo-realistic images of your model</li>
+          <li>produce an animation and a presentation of your design using CAD tools</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="rendering">
+        <h2>What is rendering?</h2>
+        <p>Rendering means a computer program turns your design into a finished image. It combines everything it knows about the scene: the shape of the model (its geometry), the camera position, the lighting, and the textures and materials on each part.</p>
+        <p>Before you render, you give each part of your design an <strong>appearance material</strong>, such as plastic, glass, metal, paint or wood. These materials hold the visual properties that make the final image look photo-realistic, so you can see how your design would look in the real world.</p>
+      </section>
+
+      <section class="lesson" id="render-workspace">
+        <h2>The Render workspace in Fusion</h2>
+        <p>Fusion keeps its rendering tools in their own Render workspace, which has two main areas.</p>
+        <p>The <strong>Setup</strong> section is where you prepare the scene:</p>
+        <ul>
+          <li><strong>Appearance</strong>: choose the materials for each part</li>
+          <li><strong>Scene Settings</strong>: set the environment, such as lighting and background</li>
+          <li><strong>Decal</strong>: place images, like logos or labels, onto surfaces</li>
+        </ul>
+        <p>The <strong>Render</strong> section is where you start and stop rendering.</p>
+      </section>
+
+      <section class="lesson" id="apply-materials">
+        <h2>Physical vs. appearance materials</h2>
+        <p>Fusion gives every part two kinds of material, and each one does a different job.</p>
+        <p>A <strong>physical material</strong> describes what the object is actually made of. Fusion uses it to work out properties like mass. If you haven't applied an appearance, the part is shown in its default physical material. You can change that default in your user preferences.</p>
+        <p>An <strong>appearance material</strong> only controls how the object looks when it's rendered. It doesn't change the mass or other engineering properties.</p>
+      </section>
+
+      <section class="lesson" id="appearance-types">
+        <h2>Types of appearance</h2>
+        <p>Fusion groups its appearance materials into a few families, based on how they handle light:</p>
+        <ul>
+          <li><strong>Opaque</strong>: materials you can't see through, or that let only a little light through (translucent). Examples are plastic, marble, wood, and liquids like milk.</li>
+          <li><strong>Transparent</strong>: materials you can see through, like glass, some plastics and most liquids.</li>
+          <li><strong>Metal</strong>: metallic materials, which are very shiny and give strong, sharp reflections.</li>
+          <li><strong>Layered</strong>: coated materials, such as carbon fibre and metallic car paint.</li>
+          <li><strong>Wood (Solid)</strong>: a 3D wood material with grain that runs all the way through, so a cut in any direction still looks like real wood.</li>
+        </ul>
+        <p class="further">Further reading: <a href="https://computergraphics.stackexchange.com/questions/5482/what-is-the-difference-between-glossy-and-specular-reflection" target="_blank" rel="noopener">What's the difference between glossy and specular reflection?</a></p>
+      </section>
+
+      <section class="lesson" id="colour">
+        <h2>Appearance: colour</h2>
+        <p>There are two common ways to choose a colour for a material.</p>
+        <p><strong>RGB</strong> describes a colour as a mix of red, green and blue light. It's how screens show colour.</p>
+        <p><strong>Pantone</strong> (also called PMS, the Pantone Matching System) is a standard library of numbered colours that's used around the world. It was created so printers and designers could agree on exactly which colour to print. It also includes colours that can't be mixed from the four standard printing inks (CMYK). Picking a Pantone colour means your render can match the real product.</p>
+      </section>
+
+      <section class="lesson" id="roughness">
+        <h2>Appearance: roughness</h2>
+        <p>Up close, every real surface is made of countless tiny reflective facets, each pointing in a slightly different direction. From a distance, these facets combine into the highlight or reflection you see on the surface.</p>
+        <p>The roughness setting copies this effect. On a smooth surface the facets all line up, which gives a sharp, mirror-like reflection. On a rough surface they point in many directions, so the reflection spreads out and looks soft or matte.</p>
+        <p class="further">Further reading: <a href="https://help.graphisoft.com/AC/23/int/_AC23_Help/131_CineRenderSurfaces/131_CineRenderSurfaces-7.htm" target="_blank" rel="noopener">Surface reflectance settings (Graphisoft help)</a></p>
+      </section>
+
+      <section class="lesson" id="refraction">
+        <h2>Appearance: index of refraction</h2>
+        <p>Light travels at different speeds through different materials. When it passes from one material into another, such as from air into glass, it slows down and bends. This bending is called refraction.</p>
+        <p>How much a material slows light down is given as a number called its <strong>index of refraction</strong>. The higher the number, the more light bends. It's a key setting for making glass, water and other transparent materials look right.</p>
+      </section>
+
+      <section class="lesson" id="reflectance">
+        <h2>Appearance: reflectance</h2>
+        <p>A surface can reflect light in two main ways.</p>
+        <p><strong>Body reflection</strong>: light goes a little way into the material and scatters back out in all directions. This gives a soft, even look and is common on matte materials like clay and paper.</p>
+        <p><strong>Surface reflection</strong>: light bounces straight off the surface. This is also called specular reflection, and it creates glossy highlights. It's the main kind of reflection on metals.</p>
+      </section>
+
+      <section class="lesson" id="activity-1-part-1">
+        <h2>Activity 1: Change the material of objects (part 1)</h2>
+        <p>Open or upload the trophy model you made in E262. Save a copy with the name <strong>Trophy_Render</strong> so the original stays untouched.</p>
+        <ol>
+          <li><strong>Go to the Render workspace.</strong> Click <em>Model &gt; Render</em>.</li>
+          <li><strong>Open the Appearance tool.</strong> Click <em>Setup &gt; Appearance</em>.</li>
+        </ol>
+        <p>In the Appearance panel, there are two things to know:</p>
+        <ul>
+          <li><strong>Apply To</strong>: switches between applying a material to whole bodies or components, and applying it to individual faces.</li>
+          <li><strong>In This Design</strong>: shows which materials are already used in your design.</li>
+        </ul>
+        <p class="further">Video walkthrough: <a href="https://www.youtube.com/watch?v=sVZD1U1Js2g&amp;list=PLmA_xUT-8UlJpYbha60oAQMxFlBY371oZ&amp;index=19" target="_blank" rel="noopener">Applying appearances in Fusion (YouTube)</a></p>
+      </section>
+
+      <section class="lesson" id="activity-1-part-2">
+        <h2>Activity 1: Change the material of objects (part 2)</h2>
+        <p>Now apply a material. You can drag it onto the part in the canvas, or onto the body in the browser.</p>
+        <ol start="3">
+          <li><strong>Apply a material to a selected part.</strong> In the library, go to <em>Plastic &gt; Opaque &gt; Plastic &gt; Glossy (Yellow)</em>, then drag the icon onto the part.</li>
+          <li><strong>Or, apply it through the browser.</strong> Find the same material and drag its icon onto the body in the browser instead.</li>
+        </ol>
+        <p>Tip: to give every body in a component the same material, drag the icon onto the <strong>top-level component</strong> in the browser.</p>
+      </section>
+
+      <section class="lesson" id="exercise-edit-material">
+        <h2>Exercise: Edit a material</h2>
+        <p>Under <strong>In This Design</strong>, double-click a material's icon. This opens its settings, where you can change its properties and appearance. Try changing the colour, roughness or reflectance, and watch how the trophy's look changes.</p>
+      </section>
+
+      <section class="lesson" id="scene-settings">
+        <h2>Scene settings</h2>
+        <p>Scene Settings control the lighting, background colour and visual effects in the Render workspace.</p>
+        <p>In Fusion, your model always sits inside an environment dome: a large sphere with a picture wrapped around the inside. This picture is called an HDRI. It reflects in the surfaces of your model and lights the scene, much like a real room or outdoor setting would.</p>
+        <p class="further">Video guide: <a href="https://www.youtube.com/watch?v=MmJL4zjfmic" target="_blank" rel="noopener">Scene settings and HDRIs (YouTube)</a> · Free HDRIs: <a href="https://polyhaven.com/hdris" target="_blank" rel="noopener">Poly Haven</a></p>
+      </section>
+
+      <section class="lesson" id="scene-settings-tabs">
+        <h2>Scene settings: settings and environment library</h2>
+        <p>The Scene Settings panel has two tabs. One holds the settings for the current scene, such as brightness, background and ground. The other is the environment library, where you choose a different environment to place your model in.</p>
+      </section>
+
+      <section class="lesson" id="hdri">
+        <h2>HDRI (High Dynamic Range Image)</h2>
+        <p>An HDRI is a 360° image that's wrapped around your 3D model to light it and give it a background. "High dynamic range" means it stores a much wider range of brightness than a normal photo, from deep shadows to the bright sun. That's why it can light a scene realistically.</p>
+        <p class="further">Video guide: <a href="https://www.youtube.com/watch?v=MmJL4zjfmic" target="_blank" rel="noopener">Scene settings and HDRIs (YouTube)</a> · Free HDRIs: <a href="https://polyhaven.com/hdris" target="_blank" rel="noopener">Poly Haven</a></p>
+      </section>
+
+      <section class="lesson" id="rendering-methods">
+        <h2>Rendering methods in Fusion</h2>
+        <p>Fusion gives you two ways to render.</p>
+        <p><strong>In-canvas render</strong> renders right in the main window using ray tracing. Ray tracing works out how light bounces around the scene, which makes the view look much more photo-realistic. Let it run for about 120 seconds before stopping it, then capture an image.</p>
+        <p><strong>Render</strong> (local rendering) lets you choose your render settings, such as image size and quality, and then renders the image on your own computer.</p>
+      </section>
+
+      <section class="lesson" id="activity-2-part-1">
+        <h2>Activity 2: Change the scene and render (part 1)</h2>
+        <ol>
+          <li><strong>Change the scene settings.</strong> Click <em>Setup &gt; Scene Settings</em>, and try these tools:
+            <ul>
+              <li><strong>Environment</strong>: choose a different setting to light the model</li>
+              <li><strong>Ground</strong>: control the ground plane under the model, such as its shadows and reflections</li>
+              <li><strong>Camera</strong>: adjust the camera view</li>
+            </ul>
+          </li>
+        </ol>
+        <p>To change the background colour, go to <em>Scene Settings &gt; Background &gt; Color</em>.</p>
+      </section>
+
+      <section class="lesson" id="activity-2-part-2">
+        <h2>Activity 2: Change the scene and render (part 2)</h2>
+        <ol start="2">
+          <li><strong>Use the in-canvas render.</strong> Click the in-canvas render button to start rendering, and click it again to stop.</li>
+        </ol>
+        <p>Rendering can take a long time. You don't have to wait for it to finish: stop it once you're happy with how the image looks.</p>
+      </section>
+
+      <section class="lesson" id="animation">
+        <h2>Animation in Fusion</h2>
+        <p>The Animation workspace lets you bring a design to life. You can:</p>
+        <ul>
+          <li>create exploded views, where the parts separate so you can see how they fit together. Fusion can do this automatically, or you can do it by hand.</li>
+          <li>control exactly how each part or assembly moves</li>
+        </ul>
+        <p>Animations are a good way to check a design and to explain it to others. For example, you can show how a product is assembled, or how to repair it.</p>
+      </section>
+
+      <section class="lesson" id="animation-interface">
+        <h2>The Animation interface</h2>
+        <p>Three parts of the screen work together when you animate:</p>
+        <ul>
+          <li><strong>Storyboard</strong>: a collection of views and actions arranged along a timeline. It's like a script for your animation.</li>
+          <li><strong>Action</strong>: one movement of a component at a certain point in time. To adjust when an action happens, change its start or finish time on the storyboard.</li>
+          <li><strong>Timeline</strong>: the strip that shows time passing, where you place and line up actions.</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="using-animation">
+        <h2>Using animation: the workflow</h2>
+        <p>Making an animation usually follows these steps:</p>
+        <ol>
+          <li>Open the Animation workspace.</li>
+          <li>Create an animation.</li>
+          <li>Explode the assembly.</li>
+          <li>Edit the animation.</li>
+          <li>Add annotations (labels and notes).</li>
+          <li>Watch the animation.</li>
+        </ol>
+        <p>You'll go through each of these in Activity 3.</p>
+      </section>
+
+      <section class="lesson" id="activity-3-part-1">
+        <h2>Activity 3: Animation (part 1)</h2>
+        <ol>
+          <li><strong>Create a new design.</strong> In the panel on the left, scroll down to <em>Design Samples</em> and double-click it. Then open the <strong>Utility Knife</strong> file.</li>
+        </ol>
+        <p class="further">Video walkthrough: <a href="https://www.youtube.com/watch?v=iJkI6N8VAiY" target="_blank" rel="noopener">Animation workspace in Fusion (YouTube)</a></p>
+      </section>
+
+      <section class="lesson" id="activity-3-part-2">
+        <h2>Activity 3: Animation (part 2)</h2>
+        <ol start="2">
+          <li><strong>Open the Animation workspace.</strong> Click the workspace dropdown menu and choose <em>Animation</em>.</li>
+          <li><strong>Create an action.</strong> Drag the playhead (the marker on the timeline) to the moment you want the action to happen, for example the 2-second mark.</li>
+        </ol>
+        <p class="further">Video walkthrough: <a href="https://www.youtube.com/watch?v=iJkI6N8VAiY" target="_blank" rel="noopener">Animation workspace in Fusion (YouTube)</a></p>
+      </section>
+
+      <section class="lesson" id="activity-3-part-3">
+        <h2>Activity 3: Animation (part 3)</h2>
+        <ol start="4">
+          <li><strong>Explode the model automatically.</strong> Rotate the model to the view you want, then double-click to select the top-level component. Click <em>Transform &gt; Auto Explode (All Levels)</em>.</li>
+          <li><strong>Adjust the explosion.</strong> Use the Auto Explode toolbar:
+            <ul>
+              <li>Move the slider to change how far apart the parts move (the explosion scale).</li>
+              <li>Choose <strong>One-Step Explosion</strong> to move all the parts at once.</li>
+              <li>Choose <strong>Sequential Explosion</strong> to move the parts one after another.</li>
+            </ul>
+          </li>
+        </ol>
+        <p class="further">Video walkthrough: <a href="https://www.youtube.com/watch?v=u15buIXZeOs" target="_blank" rel="noopener">Exploding an assembly in Fusion (YouTube)</a></p>
+      </section>
+
+      <section class="lesson" id="activity-3-part-4">
+        <h2>Activity 3: Animation (part 4)</h2>
+        <ol start="6">
+          <li><strong>Set when the explosion starts and ends.</strong> On the timeline, move the green slider (start time) and the red slider (end time). Then click the tick on the toolbar to save the action.</li>
+          <li><strong>Time the camera movement.</strong> Drag the View bar on the timeline to change when the view changes.</li>
+          <li><strong>Go back to the start.</strong> Double-click the red-curtain icon to view the animation from the beginning.</li>
+        </ol>
+      </section>
+
+      <section class="lesson" id="activity-3-part-5">
+        <h2>Activity 3: Animation (part 5): do it with me</h2>
+        <ol start="9">
+          <li><strong>Play the animation.</strong> Click <em>Play</em> and watch your utility knife come apart.</li>
+        </ol>
+      </section>
+
+      <section class="lesson" id="challenge">
+        <h2>Challenge: How do you…?</h2>
+        <p>Try these on your own using what you've learned:</p>
+        <ol>
+          <li>Make the knife blade move forward instead of backward.</li>
+          <li>Make a part spin around its own axis during the animation, such as a drone propeller.</li>
+        </ol>
+        <details>
+          <summary>Show hints</summary>
+          <ol>
+            <li>Use a manual explode instead of Auto Explode, so you control the direction.</li>
+            <li>Use the Transform Components tool to rotate the part.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section class="lesson" id="publish-video">
+        <h2>Publish your animation as a video</h2>
+        <p>When you're happy with your animation, use the <strong>Publish</strong> function to save it as a video file that you can share or add to a presentation.</p>
+      </section>
+
+      <section class="lesson" id="end">
+        <h2>You've finished!</h2>
+        <p>That's the end of this course. You can now give your designs realistic materials, set up a scene, render a photo-realistic image, and create and publish an animation.</p>
+        <p>Use the lesson list to revisit any section.</p>
+      </section>
+    </main>
+  </div>
+
+  <nav class="pager" aria-label="Previous and next lesson">
+    <button type="button" id="prev-btn">← Previous</button>
+    <span id="progress" aria-live="polite"></span>
+    <button type="button" id="next-btn">Next →</button>
+  </nav>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

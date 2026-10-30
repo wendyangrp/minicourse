@@ -1,0 +1,201 @@
+/* Plain styling for now: just enough to be readable and responsive. */
+
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555555;
+  --border: #d0d0d0;
+  --panel: #f4f4f4;
+  --link: #0645ad;
+  --current: #e2e8f5;
+}
+
+[data-theme="dark"] {
+  --bg: #161616;
+  --text: #e8e8e8;
+  --muted: #aaaaaa;
+  --border: #3a3a3a;
+  --panel: #222222;
+  --link: #8ab4f8;
+  --current: #2c3446;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--link);
+}
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Header */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-title {
+  margin: 0;
+  flex: 1;
+  font-weight: bold;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* Layout: lesson list beside the content on wide screens */
+
+.layout {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.lesson-nav {
+  flex: 0 0 260px;
+  padding: 1rem;
+  border-right: 1px solid var(--border);
+}
+
+.lesson-nav ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.lesson-nav li {
+  margin-bottom: 0.25rem;
+}
+
+.lesson-nav a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.lesson-nav a:hover {
+  text-decoration: underline;
+}
+
+.lesson-nav a[aria-current="page"] {
+  background: var(--current);
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  padding: 1rem 1.5rem 2rem;
+  max-width: 70ch;
+}
+
+.further {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+details {
+  margin-top: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+summary {
+  cursor: pointer;
+}
+
+/* When JavaScript is running, only the current lesson is shown. */
+.js .lesson[hidden] {
+  display: none;
+}
+
+/* Previous / Next bar */
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+#progress {
+  color: var(--muted);
+}
+
+/* Without JavaScript, all lessons show one after another and the controls are hidden. */
+html:not(.js) .pager,
+html:not(.js) .lesson-nav,
+html:not(.js) .menu-toggle,
+html:not(.js) .theme-toggle {
+  display: none;
+}
+
+/* Tablet and phone: the lesson list becomes a menu that opens from the header. */
+@media (max-width: 800px) {
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .lesson-nav {
+    display: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .lesson-nav.open {
+    display: block;
+  }
+
+  main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .site-title {
+    order: -1;
+    flex-basis: 100%;
+  }
+}
